@@ -68,6 +68,19 @@ public class DoubleList<T> implements List<T> {
 	}
 
 	@Override
+	 public <E> E[] toArray(E[] a) {
+        if(a.length < this.size()){
+            return (E[]) toArray();
+        }else{
+            Node<T> aux = head;
+            for (int i = 0; i < size(); i++) {
+                a[i] = (E) aux.getValue();
+                aux = aux.getNext();
+            }
+            return a;
+        }
+    }
+
     public Object[] toArray() {
         // TODO Auto-generated method stub
         if (isEmpty()) {
@@ -87,11 +100,6 @@ public class DoubleList<T> implements List<T> {
         return array;
     }
   
-	@Override
-	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 @Override
 public boolean add(T e) {
     Node<T> newNode = new Node<>(e);  
