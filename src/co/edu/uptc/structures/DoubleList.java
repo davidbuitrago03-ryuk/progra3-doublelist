@@ -42,11 +42,21 @@ public class DoubleList<T> implements List<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	@Override
-	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	 public <E> E[] toArray(E[] a) {
+        if(a.length < this.size()){
+            return (E[]) toArray();
+        }else{
+            Node<T> aux = head;
+            for (int i = 0; i < size(); i++) {
+                a[i] = (E) aux.getValue();
+                aux = aux.getNext();
+            }
+            return a;
+        }
+    }
+
 	@Override
 	public boolean add(T e) {
 		// TODO Auto-generated method stub
