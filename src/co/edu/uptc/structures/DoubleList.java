@@ -79,18 +79,27 @@ public class DoubleList<T> implements List<T> {
 	}
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		boolean hasChanged = false;
-		Iterator<T> it = this.iterator();
-
-		while (it.hasNext()) {
-			T element = it.next();
-			if (!c.contains(element)) {
-				it.remove();
-				hasChanged = true;
-			}
-		}
-
-		return hasChanged;
+		Node<T> aux = head;
+        Node<T> previous = null;
+        boolean modified = false;
+        while (aux != null) {
+            if (!c.contains(aux.getValue())) {
+                if (aux.equals(head)) {
+                    head = aux.getNext();
+                    head.setPrevious(previous);
+                }else{
+                    previous.setNext(aux.getNext());
+                    modified = true;
+                }
+            } else {
+                previous = aux;
+            }
+            aux = aux.getNext();
+            if (aux!=null) {
+                aux.setPrevious(previous);
+            }
+        }
+        return modified;
 	}
 	@Override
 	public void clear() {
